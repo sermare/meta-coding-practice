@@ -201,6 +201,11 @@ def reset_code(pid):
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    print("Starting META Coding Practice IDE at http://localhost:{}".format(port))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    import argparse
+    parser = argparse.ArgumentParser(description="META Coding Practice IDE")
+    parser.add_argument("-p", "--port", type=int, default=int(os.environ.get("PORT", 8080)),
+                        help="Port to run on (default: 8080)")
+    parser.add_argument("--host", default="0.0.0.0", help="Host to bind to")
+    args = parser.parse_args()
+    print("Starting META Coding Practice IDE at http://localhost:{}".format(args.port))
+    app.run(host=args.host, port=args.port, debug=True)
