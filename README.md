@@ -1,17 +1,19 @@
 # META Coding Interview Practice
 
-A **LeetCode-style local testing environment** for the **top 50 most common META/Facebook coding interview questions**. No account needed, no internet required — just clone, solve, and test.
+A **LeetCode-style local testing environment** for the **top 50 most common META/Facebook coding interview questions**.
+
+Features a **full web IDE** with split-pane layout (problem description + code editor + test results), just like LeetCode. No account needed, no internet required.
 
 ## Requirements
 
-- Python 3.6+
+- Python 3.7+
 - pip
 
 ## Quick Start
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/YOUR_USERNAME/meta-coding-practice.git
+git clone https://github.com/sermare/meta-coding-practice.git
 cd meta-coding-practice
 
 # 2. (Optional) Create a virtual environment
@@ -22,72 +24,58 @@ source venv/bin/activate   # Linux/macOS
 # 3. Install dependencies
 pip install -r requirements.txt
 
-# 4. List all 50 problems
-python3 runner.py list
-
-# 5. Pick a problem and start solving!
-python3 runner.py describe 1
+# 4. Launch the Web IDE
+python3 app.py
 ```
 
-## How It Works
+Then open **http://localhost:5000** in your browser.
 
-### 1. Browse problems
+## Web IDE
+
+The web interface gives you a full LeetCode-like experience:
+
+- **Dashboard** — Browse all 50 problems, filter by difficulty/category/status, track progress
+- **Problem Page** — Split-pane IDE with:
+  - **Left pane:** Problem description, constraints, examples, source links
+  - **Right top:** Code editor (Python syntax highlighting, bracket matching, auto-save)
+  - **Right bottom:** Test results with pass/fail, expected vs actual output, execution time
+- **Auto-save** — Your code is saved in the browser automatically
+- **Resizable panes** — Drag the divider between description and editor
+- **Keyboard shortcuts:**
+  - `Ctrl+Enter` / `Cmd+Enter` — Run tests
+  - `Ctrl+/` / `Cmd+/` — Toggle comment
+  - `Tab` — Insert 4 spaces
+
+## CLI Mode (Alternative)
+
+You can also use the command-line runner without the web UI:
 
 ```bash
 python3 runner.py list                        # All 50 problems
-python3 runner.py list --difficulty easy       # Filter: easy | medium | hard
-python3 runner.py list --category "Trees"     # Filter by category keyword
+python3 runner.py list --difficulty easy       # Filter by difficulty
+python3 runner.py list --category "Trees"     # Filter by category
+python3 runner.py describe 8                  # View problem description
+python3 runner.py test 8 -v                   # Test with verbose output
+python3 runner.py test all                    # Test all solutions
+python3 runner.py progress                    # View your progress
 ```
-
-### 2. Read the problem statement
-
-```bash
-python3 runner.py describe 8
-```
-
-Shows the full description, constraints, examples, difficulty, category, and source link.
-
-### 3. Implement your solution
-
-Open `problems/p008_number_of_islands.py` and replace the stub:
-
-```python
-# Before (stub)
-def solution(grid):
-    return None
-
-# After (your solution)
-def solution(grid):
-    if not grid:
-        return 0
-    count = 0
-    # ... your code here
-    return count
-```
-
-### 4. Test it
-
-```bash
-python3 runner.py test 8        # Run tests for problem 8
-python3 runner.py test 8 -v     # Verbose: see inputs, expected vs actual
-python3 runner.py test all      # Run all 50 problems at once
-```
-
-### 5. Track your progress
-
-```bash
-python3 runner.py progress
-```
-
-Shows solved/attempted/remaining counts broken down by difficulty.
 
 ## Project Structure
 
 ```
 meta-coding-practice/
-├── runner.py               # Main CLI test runner
+├── app.py                  # Web IDE (Flask server)
+├── runner.py               # CLI test runner
+├── execute_user_code.py    # Sandboxed code execution engine
 ├── problem_registry.py     # Problem metadata (title, difficulty, source links)
-├── requirements.txt        # Python dependencies (colorama, tabulate)
+├── requirements.txt        # Python dependencies
+├── templates/              # HTML templates for web IDE
+│   ├── base.html
+│   ├── dashboard.html
+│   └── problem.html
+├── static/                 # CSS and JS for web IDE
+│   ├── style.css
+│   └── app.js
 ├── problems/               # 50 problem files — edit these!
 │   ├── p001_two_sum.py
 │   ├── p002_move_zeroes.py
@@ -179,7 +167,7 @@ Each problem file includes the specific source URL where it was identified as a 
 - META interviews favor **Arrays, Strings, and Trees** — prioritize those categories
 - Practice writing clean code **without an IDE** — META disables autocomplete in CoderPad
 - Aim to solve Medium problems in **15-20 minutes** and Easy in **10 minutes**
-- Use `python3 runner.py test <N> -v` to see exactly where your solution fails
+- Use `Ctrl+Enter` in the web IDE to quickly run tests
 
 ## License
 

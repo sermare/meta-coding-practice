@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - META Coding Practice{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <!-- Progress Header -->
+    <div class="progress-header">
+        <h1>Problems</h1>
+        <div class="progress-bar-container">
+            <div class="progress-stats">
+                <span class="stat solved">{{ solved }} Solved</span>
+                <span class="stat total">/ {{ total }} Total</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: {{ (solved / total * 100) if total > 0 else 0 }}%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+        <input type="text" id="search-input" class="filter-input" placeholder="Search problems...">
+        <select id="difficulty-filter" class="filter-select">
+            <option value="all">All Difficulties</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+        </select>
+        <select id="status-filter" class="filter-select">
+            <option value="all">All Status</option>
+            <option value="not_started">Not Started</option>
+            <option value="attempted">Attempted</option>
+            <option value="passed">Solved</option>
+        </select>
+    </div>
+
+    <!-- Problem Table -->
+    <table class="problem-table">
+        <thead>
+            <tr>
+                <th class="col-status"></th>
+                <th class="col-id">#</th>
+                <th class="col-title">Title</th>
+                <th class="col-difficulty">Difficulty</th>
+                <th class="col-category">Category</th>
+                <th class="col-source">LeetCode</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in problems %}
+            <tr class="problem-row"
+                data-difficulty="{{ p.difficulty }}"
+                data-status="{{ p.status }}"
+                data-title="{{ p.title|lower }}">
+                <td class="col-status">
+                    {% if p.status == 'passed' %}
+                        <span class="status-icon solved" title="Solved">&#10003;</span>
+                    {% elif p.status == 'attempted' %}
+                        <span class="status-icon attempted" title="Attempted">&#9679;</span>
+                    {% else %}
+                        <span class="status-icon not-started"></span>
+                    {% endif %}
+                </td>
+                <td class="col-id">{{ p.id }}</td>
+                <td class="col-title">
+                    <a href="/problem/{{ p.id }}">{{ p.title }}</a>
+                </td>
+                <td class="col-difficulty">
+                    <span class="difficulty-badge {{ p.difficulty|lower }}">{{ p.difficulty }}</span>
+                </td>
+                <td class="col-category">{{ p.category }}</td>
+                <td class="col-source">
+                    <a href="{{ p.source }}" target="_blank" class="leetcode-link">#{{ p.leetcode_num }}</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+(function() {
+    var searchInput = document.getElementById('search-input');
+    var diffFilter = document.getElementById('difficulty-filter');
+    var statusFilter = document.getElementById('status-filter');
+    var rows = document.querySelectorAll('.problem-row');
+
+    function applyFilters() {
+        var query = searchInput.value.toLowerCase();
+        var diff = diffFilter.value;
+        var status = statusFilter.value;
+
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var matchTitle = row.getAttribute('data-title').indexOf(query) !== -1;
+            var matchDiff = diff === 'all' || row.getAttribute('data-difficulty') === diff;
+            var matchStatus = status === 'all' || row.getAttribute('data-status') === status;
+            row.style.display = (matchTitle && matchDiff && matchStatus) ? '' : 'none';
+        }
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+    diffFilter.addEventListener('change', applyFilters);
+    statusFilter.addEventListener('change', applyFilters);
+})();
+</script>
+{% endblock %}

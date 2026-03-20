@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}{{ problem.title }} - META Coding Practice{% endblock %}
+
+{% block content %}
+<div class="ide-container">
+    <!-- Left Pane: Problem Description -->
+    <div class="left-pane">
+        <div class="pane-header">
+            <div class="problem-nav">
+                {% if prev_pid %}
+                <a href="/problem/{{ prev_pid }}" class="nav-arrow" title="Previous">&larr; Prev</a>
+                {% endif %}
+                <a href="/" class="nav-link">All Problems</a>
+                {% if next_pid %}
+                <a href="/problem/{{ next_pid }}" class="nav-arrow" title="Next">Next &rarr;</a>
+                {% endif %}
+            </div>
+            <h2>{{ pid }}. {{ problem.title }}</h2>
+            <div class="problem-meta">
+                <span class="difficulty-badge {{ problem.difficulty|lower }}">{{ problem.difficulty }}</span>
+                <span class="category-tag">{{ problem.category }}</span>
+                <a href="{{ problem.source }}" target="_blank" class="source-link">LeetCode #{{ problem.leetcode_num }}</a>
+                <a href="{{ problem.ref }}" target="_blank" class="source-link">Source</a>
+            </div>
+        </div>
+        <div class="description-body">
+            <pre class="description-text">{{ description }}</pre>
+        </div>
+    </div>
+
+    <!-- Resizer -->
+    <div class="pane-resizer" id="pane-resizer"></div>
+
+    <!-- Right Pane: Editor + Results -->
+    <div class="right-pane">
+        <!-- Editor -->
+        <div class="editor-section">
+            <div class="editor-header">
+                <span class="editor-label">Python 3</span>
+                <div class="editor-actions">
+                    <button id="reset-btn" class="btn btn-secondary" title="Reset to original stub">Reset</button>
+                </div>
+            </div>
+            <div class="editor-wrapper">
+                <textarea id="code-editor">{{ stub_code }}</textarea>
+            </div>
+        </div>
+
+        <!-- Button Bar -->
+        <div class="button-bar">
+            <button id="run-btn" class="btn btn-primary">
+                <span class="btn-icon">&#9654;</span> Run Tests
+            </button>
+            <span id="run-status" class="run-status"></span>
+        </div>
+
+        <!-- Results Panel -->
+        <div class="results-section" id="results-section">
+            <div class="results-header">
+                <span>Test Results</span>
+                <span id="results-summary" class="results-summary"></span>
+            </div>
+            <div class="results-body" id="results-body">
+                <div class="results-placeholder">Click "Run Tests" to test your solution</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var PROBLEM_ID = {{ pid }};
+    var INITIAL_CODE = {{ stub_code|tojson }};
+</script>
+{% endblock %}
