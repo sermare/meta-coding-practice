@@ -1,0 +1,40 @@
+DESCRIPTION = """
+Rotting Oranges
+
+You are given an m x n grid where each cell can have one of three values:
+- 0 representing an empty cell,
+- 1 representing a fresh orange, or
+- 2 representing a rotten orange.
+
+Every minute, any fresh orange that is 4-directionally adjacent to a rotten
+orange becomes rotten. Return the minimum number of minutes that must elapse
+until no cell has a fresh orange. If impossible, return -1.
+
+Constraints:
+- m == grid.length
+- n == grid[i].length
+- 1 <= m, n <= 10
+- grid[i][j] is 0, 1, or 2.
+
+Examples:
+  Input: grid = [[2,1,1],[1,1,0],[0,1,1]]
+  Output: 4
+
+  Input: grid = [[2,1,1],[0,1,1],[1,0,1]]
+  Output: -1
+
+  Input: grid = [[0,2]]
+  Output: 0
+"""
+
+def solution(grid):
+    """
+    Return the minimum minutes for all oranges to rot, or -1 if impossible.
+
+    Args:
+        grid: List[List[int]], the grid of oranges.
+
+    Returns:
+        An integer, the minimum minutes or -1.
+    """
+    return None

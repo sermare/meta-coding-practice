@@ -1,0 +1,45 @@
+DESCRIPTION = """Shortest Path to Get All Keys
+
+You are given an m x n grid where each cell is either empty ('.'), a wall ('#'),
+the starting point ('@'), a lowercase letter representing a key, or an uppercase
+letter representing a lock.
+
+You start at the starting point and one move consists of walking one space in one
+of the four cardinal directions. You cannot walk outside the grid, or walk into a
+wall.
+
+If you walk over a key, you can pick it up and you cannot walk over a lock unless
+you have its corresponding key.
+
+For some 1 <= k <= 6, there is exactly one lowercase and one uppercase letter of
+the first k letters of the English alphabet in the grid. This means there is
+exactly one key for each lock, and one lock for each key; and also that the letters
+used to represent the keys and locks were chosen in the same order as the English
+alphabet.
+
+Return the lowest number of moves to acquire all keys. If it is impossible, return -1.
+
+Example 1:
+    Input: grid = ["@.a..","###.#","b.A.B"]
+    Output: 8
+    Explanation: The goal is to obtain all the keys, collecting a then b.
+
+Example 2:
+    Input: grid = ["@..aA","..B#.","....b"]
+    Output: 6
+
+Example 3:
+    Input: grid = ["@Aa"]
+    Output: -1
+
+Constraints:
+    - m == grid.length
+    - n == grid[i].length
+    - 1 <= m, n <= 30
+    - grid[i][j] is either '.', '#', '@', a lowercase or an uppercase English letter.
+    - The number of keys in the grid is in the range [1, 6].
+"""
+
+
+def solution(grid):
+    return None

@@ -1,0 +1,30 @@
+from problems.p359_minimum_depth_of_binary_tree import solution, build_tree
+
+
+TEST_CASES = [
+    {
+        "description": "Standard tree: min depth 2",
+        "run": lambda: solution(build_tree([3, 9, 20, None, None, 15, 7])),
+        "expected": 2,
+    },
+    {
+        "description": "Right-skewed: min depth 5",
+        "run": lambda: solution(build_tree([2, None, 3, None, 4, None, 5, None, 6])),
+        "expected": 5,
+    },
+    {
+        "description": "Empty tree: depth 0",
+        "run": lambda: solution(build_tree([])),
+        "expected": 0,
+    },
+    {
+        "description": "Single node: depth 1",
+        "run": lambda: solution(build_tree([1])),
+        "expected": 1,
+    },
+    {
+        "description": "Balanced tree: depth 2",
+        "run": lambda: solution(build_tree([1, 2, 3])),
+        "expected": 2,
+    },
+]

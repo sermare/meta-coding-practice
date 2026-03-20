@@ -1,0 +1,19 @@
+DESCRIPTION = """Jump Game II
+
+You are given a 0-indexed array of integers `nums` of length n. You are initially
+positioned at nums[0].
+
+Each element nums[i] represents the maximum length of a forward jump from index i.
+
+Return the minimum number of jumps to reach nums[n - 1]. The test cases are generated
+such that you can reach nums[n - 1].
+
+Example:
+    Input: nums = [2, 3, 1, 1, 4]
+    Output: 2
+    Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
+"""
+
+
+def solution(nums):
+    return None

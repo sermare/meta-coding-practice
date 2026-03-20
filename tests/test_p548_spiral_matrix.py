@@ -1,0 +1,29 @@
+from problems.p548_spiral_matrix import solution
+
+TEST_CASES = [
+    {
+        "description": "3x3 matrix",
+        "run": lambda: solution([[1,2,3],[4,5,6],[7,8,9]]),
+        "expected": [1, 2, 3, 6, 9, 8, 7, 4, 5],
+    },
+    {
+        "description": "3x4 matrix",
+        "run": lambda: solution([[1,2,3,4],[5,6,7,8],[9,10,11,12]]),
+        "expected": [1, 2, 3, 4, 8, 12, 11, 10, 9, 5, 6, 7],
+    },
+    {
+        "description": "Single row",
+        "run": lambda: solution([[1,2,3]]),
+        "expected": [1, 2, 3],
+    },
+    {
+        "description": "Single column",
+        "run": lambda: solution([[1],[2],[3]]),
+        "expected": [1, 2, 3],
+    },
+    {
+        "description": "1x1",
+        "run": lambda: solution([[5]]),
+        "expected": [5],
+    },
+]
